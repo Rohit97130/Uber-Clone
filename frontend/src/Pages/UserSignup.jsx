@@ -1,30 +1,65 @@
 import React ,{useEffect, useState} from 'react'
-import { Link } from 'react-router-dom'
+import { Link , useNavigate} from 'react-router-dom'
+import { UserDataContext } from '../context/UserContext';
+import { useContext } from 'react';
+import axios from 'axios';
+
+
 
 
 function UserSignup() {
-    const [email, setEmail] = useState('');
+      const [email, setEmail] = useState('');
       const [password, setPassword] = useState('');
       const [FirstName, setFirstName] = useState('');
       const [LastName, setLastName] = useState('');
+      const navigate = useNavigate();
 
-      const [userdata,setuserdata] = useState({});
-        const submitForm = (e)=>{
+      const {user, setUser} =  useContext(UserDataContext);
+
+        
+        const submitForm = async(e)=>{
             e.preventDefault();
-           console.log(email,password);
-           setuserdata({
-             email:email,
-             password:password,
-             fullName:{
-               firstName: FirstName,
-                lastName: LastName
-             }
-           })
-          
            setEmail('')
            setPassword('')
            setFirstName('')
            setLastName('')
+
+           const newUser = {
+              fullname:{
+                 firstname:FirstName,
+                 lastname:LastName
+              },
+              email:email,
+              password:password
+           }
+
+          try{
+           const response =  await axios.post(`${import.meta.env.VITE_BACKEND_URL}/users/register`,newUser);
+           if(response.status === 201){
+               const data = response.data
+               setUser(data.user);
+               localStorage.setItem('token',data.token);
+               navigate('/home');
+           }
+        }
+            catch(err){
+               if(err.response){
+                  if(err.response.status === 400){
+                     //validation error
+                     const errors = err.response.data.errors;
+                     console.log(errors);
+                     alert(errors.map(err=>`${err.msg}`) || 'Validation error');
+                  }
+                  else if(err.response.status === 409){
+                      alert(err.response.data.message || 'User alredy register');
+                  }else{
+                      alert("Unexpected error. Please try again later.");
+                  }
+               } else if(err.request){
+                 // ✅ No response from server
+                  alert("No response from server. Please check your connection.");
+               }
+            }
     }
 
   return (
@@ -76,7 +111,7 @@ function UserSignup() {
           />
 
           <button className="w-full bg-[#111] text-white font-semibold mb-5 rounded px-4 py-2 border text-sm placeholder:text-sm">
-            Login
+            Create account here
           </button>
 
           <p className="text-center text-sm">
