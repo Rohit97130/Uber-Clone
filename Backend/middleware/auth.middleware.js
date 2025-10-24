@@ -36,8 +36,8 @@ module.exports.authCaptain = async(req,res,next)=>{
      
     const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
     
-    console.log('my-req.cookies.token:', req.cookies.token);
-    console.log('req.headers.authorization:', req.headers.authorization);
+    // console.log('my-req.cookies.token:', req.cookies.token);
+    // console.log('req.headers.authorization:', req.headers.authorization);
     
 
     if(!token){
