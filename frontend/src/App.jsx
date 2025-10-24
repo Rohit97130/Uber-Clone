@@ -10,7 +10,7 @@ import CaptainSignup from './Pages/CaptainSignup'
 import {UserDataContext} from './context/UserContext'
 import {useContext} from 'react'
 import UserProtectedWrapper from './Pages/UserProtectedWrapper';
-import UserLogout from './Pages/userLogout';
+import UserLogout from './Pages/UserLogout';
 import CaptainHome from './Pages/CaptainHome';
 import CaptainProtected from './Pages/CaptainProtected';
 import CaptainLogout from './Pages/CaptainLogout';
