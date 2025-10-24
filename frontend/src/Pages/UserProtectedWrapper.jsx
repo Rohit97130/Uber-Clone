@@ -27,7 +27,9 @@ function UserProtectedWrapper({children}) {
                }
          }).then(response =>{
               if(response.status === 200){
-                   setUser(response.data.user);
+                  console.log('user profile',response.data);
+                  
+                   setUser(response.data);
                    setIsLoading(false);
               }
          }).catch(err =>{

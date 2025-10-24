@@ -13,6 +13,8 @@ function CaptainContext({children}) {
         setCaptain(captainData);
      }
 
+   
+     
     const value = {
         captain,
         error,

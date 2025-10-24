@@ -12,7 +12,8 @@ function UserLogin() {
 
    const navigate =  useNavigate();
 
-   const{user,setUser} =  useContext(UserDataContext);
+
+   const { user,setUser } = useContext(UserDataContext);
   
    
 
@@ -26,7 +27,7 @@ function UserLogin() {
          }
          const response  = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/users/login`,userData);
         
-         console.log(user);
+    
          
 
          if(response.status === 200){  

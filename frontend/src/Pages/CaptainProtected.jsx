@@ -27,6 +27,8 @@ function CaptainProtected({children}) {
          }).then(response =>{
               if(response.status === 200){
                    setCaptain(response.data.captain);
+                   console.log('my responseewill be',response.data);
+                   
                    setIsLoading(false);
               }
          }).catch(err =>{
